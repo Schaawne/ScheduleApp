@@ -1,0 +1,1 @@
+java -cp jooq-3.8.2.jar;jooq-meta-3.8.2.jar;jooq-codegen-3.8.2.jar;h2-1.4.192.jar;. org.jooq.util.GenerationTool /H2Classes-JOOQ.xml

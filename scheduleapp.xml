@@ -99,21 +99,13 @@
     <pathelement location="${path.variable.maven_repository}/com/h2database/h2/1.4.191/h2-1.4.191.jar"/>
   </path>
   
+  <path id="library.javax.persistence:persistence-api:1.0.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/persistence/persistence-api/1.0.2/persistence-api-1.0.2.jar"/>
+  </path>
+  
   <path id="library.org.jooq:jooq:3.8.2.classpath">
     <pathelement location="${path.variable.maven_repository}/org/jooq/jooq/3.8.2/jooq-3.8.2.jar"/>
   </path>
-  <!-- Register Custom Compiler Taskdefs -->
-  <property name="javac2.home" value="${idea.home}/lib"/>
-  <path id="javac2.classpath">
-    <pathelement location="${javac2.home}/javac2.jar"/>
-    <pathelement location="${javac2.home}/jdom.jar"/>
-    <pathelement location="${javac2.home}/asm-all.jar"/>
-    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
-  </path>
-  <target name="register.custom.compilers">
-    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
-    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
-  </target>
   
   <!-- Modules -->
   
@@ -140,12 +132,14 @@
     <path refid="${module.jdk.classpath.scheduleapp}"/>
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
+    <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
   </path>
   
   <path id="scheduleapp.runtime.production.module.classpath">
     <pathelement location="${scheduleapp.output.dir}"/>
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
+    <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
   </path>
   
   <path id="scheduleapp.module.classpath">
@@ -153,6 +147,7 @@
     <pathelement location="${scheduleapp.output.dir}"/>
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
+    <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
   </path>
   
   <path id="scheduleapp.runtime.module.classpath">
@@ -160,6 +155,7 @@
     <pathelement location="${scheduleapp.output.dir}"/>
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
+    <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
   </path>
   
   
@@ -173,37 +169,69 @@
   
   <path id="scheduleapp.module.sourcepath">
     <dirset dir="${module.scheduleapp.basedir}">
-      <include name="src"/>
-      <include name="resources"/>
+      <include name="src/main"/>
+      <include name="src/main/resources"/>
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  <path id="scheduleapp.module.test.sourcepath">
+    <dirset dir="${module.scheduleapp.basedir}">
+      <include name="src/test"/>
+      <include name="src/test/java"/>
     </dirset>
   </path>
   
   
   <target name="compile.module.scheduleapp" depends="compile.module.scheduleapp.production,compile.module.scheduleapp.tests" description="Compile module ScheduleApp"/>
   
-  <target name="compile.module.scheduleapp.production" depends="register.custom.compilers" description="Compile module ScheduleApp; production classes">
+  <target name="compile.module.scheduleapp.production" description="Compile module ScheduleApp; production classes">
     <mkdir dir="${scheduleapp.output.dir}"/>
-    <javac2 destdir="${scheduleapp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.scheduleapp}/javac">
+    <javac destdir="${scheduleapp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.scheduleapp}/javac">
       <compilerarg line="${compiler.args.scheduleapp}"/>
       <bootclasspath refid="scheduleapp.module.bootclasspath"/>
       <classpath refid="scheduleapp.module.production.classpath"/>
       <src refid="scheduleapp.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.scheduleapp"/>
-    </javac2>
+    </javac>
     
     <copy todir="${scheduleapp.output.dir}">
-      <fileset dir="${module.scheduleapp.basedir}/src">
+      <fileset dir="${module.scheduleapp.basedir}/src/main">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.scheduleapp.basedir}/resources">
+      <fileset dir="${module.scheduleapp.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.scheduleapp.basedir}/src/main/java">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
     </copy>
   </target>
   
-  <target name="compile.module.scheduleapp.tests" depends="register.custom.compilers,compile.module.scheduleapp.production" description="compile module ScheduleApp; test classes" unless="skip.tests"/>
+  <target name="compile.module.scheduleapp.tests" depends="compile.module.scheduleapp.production" description="compile module ScheduleApp; test classes" unless="skip.tests">
+    <mkdir dir="${scheduleapp.testoutput.dir}"/>
+    <javac destdir="${scheduleapp.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.scheduleapp}/javac">
+      <compilerarg line="${compiler.args.scheduleapp}"/>
+      <bootclasspath refid="scheduleapp.module.bootclasspath"/>
+      <classpath refid="scheduleapp.module.classpath"/>
+      <src refid="scheduleapp.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.scheduleapp"/>
+    </javac>
+    
+    <copy todir="${scheduleapp.testoutput.dir}">
+      <fileset dir="${module.scheduleapp.basedir}/src/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.scheduleapp.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
   
   <target name="clean.module.scheduleapp" description="cleanup module">
     <delete dir="${scheduleapp.output.dir}"/>
@@ -214,9 +242,67 @@
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.scheduleapp" description="cleanup all"/>
+  <target name="clean" depends="clean.module.scheduleapp, clean.artifact.scheduleapp" description="cleanup all"/>
   
   <target name="build.modules" depends="init, clean, compile.module.scheduleapp" description="build all modules"/>
   
-  <target name="all" depends="build.modules" description="build all"/>
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.scheduleapp" value="${basedir}/out/artifacts/ScheduleApp"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="artifact.temp.output.ScheduleApp" value="${artifacts.temp.dir}/ScheduleApp.jar"/>
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
+  </target>
+  
+  <target name="clean.artifact.scheduleapp" description="clean ScheduleApp artifact output">
+    <delete dir="${artifact.output.scheduleapp}"/>
+  </target>
+  
+  <target name="artifact.scheduleapp" depends="init.artifacts, compile.module.scheduleapp" description="Build &#39;ScheduleApp&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <mkdir dir="${artifact.output.scheduleapp}"/>
+    <copy todir="${artifact.temp.output.ScheduleApp}">
+      <fileset dir="${scheduleapp.output.dir}"/>
+    </copy>
+    <copy file="${path.variable.maven_repository}/com/h2database/h2/1.4.191/h2-1.4.191.jar" tofile="${artifact.temp.output.ScheduleApp}/h2-1.4.191.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jooq/jooq/3.8.2/jooq-3.8.2.jar" tofile="${artifact.temp.output.ScheduleApp}/jooq-3.8.2.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/persistence/persistence-api/1.0.2/persistence-api-1.0.2.jar" tofile="${artifact.temp.output.ScheduleApp}/persistence-api-1.0.2.jar"/>
+    <mkdir dir="${artifact.temp.output.ScheduleApp}/database"/>
+    <copy todir="${artifact.temp.output.ScheduleApp}/database">
+      <fileset dir="${basedir}/database"/>
+    </copy>
+    <fx:fileset id="all_but_ScheduleApp" dir="${artifact.temp.output.ScheduleApp}" includes="**/*.jar">
+      <exclude name="ScheduleApp.jar"/>
+    </fx:fileset>
+    <fx:fileset id="all_ScheduleApp" dir="${artifact.temp.output.ScheduleApp}" includes="**/*.jar"/>
+    <fx:application id="ScheduleApp_id" name="ScheduleApp" mainClass="com.schaawne.scheduleapp.MainClass"/>
+    <fx:jar destfile="${artifact.temp.output.ScheduleApp}\ScheduleApp.jar">
+      <fx:application refid="ScheduleApp_id"/>
+      <fileset dir="${artifact.temp.output.ScheduleApp}" excludes="**/*.jar"/>
+      <fx:resources>
+        <fx:fileset refid="all_but_ScheduleApp"/>
+      </fx:resources>
+      <manifest/>
+    </fx:jar>
+    <fx:deploy width="600" height="400" updatemode="background" outdir="${artifact.temp.output.ScheduleApp}\deploy" outfile="ScheduleApp">
+      <fx:application refid="ScheduleApp_id"/>
+      <fx:info title="Schedule App" vendor="Schaawne" description="Scheduling Application"/>
+      <fx:resources>
+        <fx:fileset refid="all_ScheduleApp"/>
+      </fx:resources>
+    </fx:deploy>
+    <copy todir="${artifact.output.scheduleapp}">
+      <fileset dir="${artifact.temp.output.ScheduleApp}/deploy"/>
+    </copy>
+    <delete includeemptydirs="true">
+      <fileset dir="${artifact.temp.output.ScheduleApp}"/>
+    </delete>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.scheduleapp" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>

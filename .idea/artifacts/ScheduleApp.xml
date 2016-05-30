@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="ScheduleApp">
+    <output-path>$PROJECT_DIR$/out/artifacts/ScheduleApp</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.schaawne.scheduleapp.MainClass" />
+        <option name="description" value="Scheduling Application" />
+        <option name="htmlParamFile" value="" />
+        <option name="paramFile" value="" />
+        <option name="title" value="Schedule App" />
+        <option name="vendor" value="Schaawne" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="ScheduleApp.jar">
+        <element id="module-output" name="ScheduleApp" />
+        <element id="library" level="project" name="com.h2database:h2:1.4.191" />
+        <element id="library" level="project" name="org.jooq:jooq:3.8.2" />
+        <element id="library" level="project" name="javax.persistence:persistence-api:1.0.2" />
+      </element>
+      <element id="directory" name="database">
+        <element id="dir-copy" path="$PROJECT_DIR$/database" />
+      </element>
+    </root>
+  </artifact>
+</component>
