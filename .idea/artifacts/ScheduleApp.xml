@@ -17,9 +17,13 @@
         <element id="library" level="project" name="com.h2database:h2:1.4.191" />
         <element id="library" level="project" name="org.jooq:jooq:3.8.2" />
         <element id="library" level="project" name="javax.persistence:persistence-api:1.0.2" />
+        <element id="library" level="project" name="org.controlsfx:controlsfx-samples:8.40.10" />
       </element>
       <element id="directory" name="database">
         <element id="dir-copy" path="$PROJECT_DIR$/database" />
+      </element>
+      <element id="directory" name="licenses">
+        <element id="dir-copy" path="$PROJECT_DIR$/licenses" />
       </element>
     </root>
   </artifact>

@@ -1,8 +1,6 @@
 package com.schaawne.scheduleapp;
 
 import org.h2.jdbcx.JdbcConnectionPool;
-
-import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 

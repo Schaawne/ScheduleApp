@@ -4,6 +4,7 @@
 package com.schaawne.scheduleapp.generated;
 
 
+import com.schaawne.scheduleapp.generated.tables.Schedule;
 import com.schaawne.scheduleapp.generated.tables.Students;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -2020169551;
+    private static final long serialVersionUID = -1598524693;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -42,6 +43,11 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.STUDENTS</code>.
      */
     public final Students STUDENTS = com.schaawne.scheduleapp.generated.tables.Students.STUDENTS;
+
+    /**
+     * The table <code>PUBLIC.SCHEDULE</code>.
+     */
+    public final Schedule SCHEDULE = com.schaawne.scheduleapp.generated.tables.Schedule.SCHEDULE;
 
     /**
      * No further instances allowed
@@ -68,7 +74,8 @@ public class Public extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.SYSTEM_SEQUENCE_18623079_5906_42F4_8987_6B9E32178868);
+            Sequences.SYSTEM_SEQUENCE_18623079_5906_42F4_8987_6B9E32178868,
+            Sequences.SYSTEM_SEQUENCE_EE3DABEF_603C_4C2E_8175_52BB236F0673);
     }
 
     @Override
@@ -80,6 +87,7 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Students.STUDENTS);
+            Students.STUDENTS,
+            Schedule.SCHEDULE);
     }
 }

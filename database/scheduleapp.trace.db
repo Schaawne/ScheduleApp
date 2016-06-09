@@ -49,3 +49,59 @@ DROP TABLE STUDENTS [42102-192]
 2016-05-30 15:18:50 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO STUDENTS (FIRSTNAME, LASTNAME, EMAIL) VALUES ('Fake', 'Student', [*]'FakeStudent@gmail.com)"; SQL statement:
 INSERT INTO STUDENTS (FIRSTNAME, LASTNAME, EMAIL) VALUES ('Fake', 'Student', 'FakeStudent@gmail.com) [42000-192]
+2016-05-30 19:30:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "FK_STUDENTS" not found; SQL statement:
+CREATE TABLE SCHEDULE
+(
+ID int PRIMARY KEY AUTO_INCREMENT,
+STUDENTS_FK int,
+SPAN int NOT NULL,
+CONSTRAINT FK_STUDENTS FOREIGN KEY (FK_STUDENTS) REFERENCES STUDENTS(ID)
+) [42122-192]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:682)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:74)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:208)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:77)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:176)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:98)
+	at org.h2.command.Command.executeUpdate(Command.java:258)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:184)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-05-30 19:32:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "FK_STUDENTS" not found; SQL statement:
+CREATE TABLE SCHEDULE
+(
+ID int PRIMARY KEY AUTO_INCREMENT,
+STUDENTS_FK int,
+SPAN int NOT NULL,
+FOREIGN KEY (FK_STUDENTS) REFERENCES STUDENTS(ID)
+) [42122-192]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:682)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:74)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:208)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:77)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:176)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:98)
+	at org.h2.command.Command.executeUpdate(Command.java:258)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:184)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)

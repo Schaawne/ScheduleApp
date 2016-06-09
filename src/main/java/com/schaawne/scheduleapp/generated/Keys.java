@@ -4,11 +4,14 @@
 package com.schaawne.scheduleapp.generated;
 
 
+import com.schaawne.scheduleapp.generated.tables.Schedule;
 import com.schaawne.scheduleapp.generated.tables.Students;
+import com.schaawne.scheduleapp.generated.tables.records.ScheduleRecord;
 import com.schaawne.scheduleapp.generated.tables.records.StudentsRecord;
 
 import javax.annotation.Generated;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
@@ -33,17 +36,20 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<StudentsRecord, Integer> IDENTITY_STUDENTS = Identities0.IDENTITY_STUDENTS;
+    public static final Identity<ScheduleRecord, Integer> IDENTITY_SCHEDULE = Identities0.IDENTITY_SCHEDULE;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<StudentsRecord> CONSTRAINT_9 = UniqueKeys0.CONSTRAINT_9;
+    public static final UniqueKey<ScheduleRecord> CONSTRAINT_5 = UniqueKeys0.CONSTRAINT_5;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<ScheduleRecord, StudentsRecord> FK_STUDENTS = ForeignKeys0.FK_STUDENTS;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -51,9 +57,15 @@ public class Keys {
 
     private static class Identities0 extends AbstractKeys {
         public static Identity<StudentsRecord, Integer> IDENTITY_STUDENTS = createIdentity(Students.STUDENTS, Students.STUDENTS.ID);
+        public static Identity<ScheduleRecord, Integer> IDENTITY_SCHEDULE = createIdentity(Schedule.SCHEDULE, Schedule.SCHEDULE.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<StudentsRecord> CONSTRAINT_9 = createUniqueKey(Students.STUDENTS, "CONSTRAINT_9", Students.STUDENTS.ID);
+        public static final UniqueKey<ScheduleRecord> CONSTRAINT_5 = createUniqueKey(Schedule.SCHEDULE, "CONSTRAINT_5", Schedule.SCHEDULE.ID);
+    }
+
+    private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<ScheduleRecord, StudentsRecord> FK_STUDENTS = createForeignKey(com.schaawne.scheduleapp.generated.Keys.CONSTRAINT_9, Schedule.SCHEDULE, "FK_STUDENTS", Schedule.SCHEDULE.STUDENTS_FK);
     }
 }

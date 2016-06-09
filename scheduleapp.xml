@@ -103,6 +103,12 @@
     <pathelement location="${path.variable.maven_repository}/javax/persistence/persistence-api/1.0.2/persistence-api-1.0.2.jar"/>
   </path>
   
+  <path id="library.org.controlsfx:controlsfx-samples:8.40.10.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/controlsfx/controlsfx-samples/8.40.10/controlsfx-samples-8.40.10.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/controlsfx/controlsfx/8.40.10/controlsfx-8.40.10.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/controlsfx/fxsampler/1.0.9/fxsampler-1.0.9.jar"/>
+  </path>
+  
   <path id="library.org.jooq:jooq:3.8.2.classpath">
     <pathelement location="${path.variable.maven_repository}/org/jooq/jooq/3.8.2/jooq-3.8.2.jar"/>
   </path>
@@ -133,6 +139,7 @@
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
     <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
+    <path refid="library.org.controlsfx:controlsfx-samples:8.40.10.classpath"/>
   </path>
   
   <path id="scheduleapp.runtime.production.module.classpath">
@@ -140,6 +147,7 @@
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
     <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
+    <path refid="library.org.controlsfx:controlsfx-samples:8.40.10.classpath"/>
   </path>
   
   <path id="scheduleapp.module.classpath">
@@ -148,6 +156,7 @@
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
     <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
+    <path refid="library.org.controlsfx:controlsfx-samples:8.40.10.classpath"/>
   </path>
   
   <path id="scheduleapp.runtime.module.classpath">
@@ -156,6 +165,7 @@
     <path refid="library.org.jooq:jooq:3.8.2.classpath"/>
     <path refid="library.com.h2database:h2:1.4.191.classpath"/>
     <path refid="library.javax.persistence:persistence-api:1.0.2.classpath"/>
+    <path refid="library.org.controlsfx:controlsfx-samples:8.40.10.classpath"/>
   </path>
   
   
@@ -266,9 +276,16 @@
     <copy file="${path.variable.maven_repository}/com/h2database/h2/1.4.191/h2-1.4.191.jar" tofile="${artifact.temp.output.ScheduleApp}/h2-1.4.191.jar"/>
     <copy file="${path.variable.maven_repository}/org/jooq/jooq/3.8.2/jooq-3.8.2.jar" tofile="${artifact.temp.output.ScheduleApp}/jooq-3.8.2.jar"/>
     <copy file="${path.variable.maven_repository}/javax/persistence/persistence-api/1.0.2/persistence-api-1.0.2.jar" tofile="${artifact.temp.output.ScheduleApp}/persistence-api-1.0.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/controlsfx/controlsfx-samples/8.40.10/controlsfx-samples-8.40.10.jar" tofile="${artifact.temp.output.ScheduleApp}/controlsfx-samples-8.40.10.jar"/>
+    <copy file="${path.variable.maven_repository}/org/controlsfx/controlsfx/8.40.10/controlsfx-8.40.10.jar" tofile="${artifact.temp.output.ScheduleApp}/controlsfx-8.40.10.jar"/>
+    <copy file="${path.variable.maven_repository}/org/controlsfx/fxsampler/1.0.9/fxsampler-1.0.9.jar" tofile="${artifact.temp.output.ScheduleApp}/fxsampler-1.0.9.jar"/>
     <mkdir dir="${artifact.temp.output.ScheduleApp}/database"/>
     <copy todir="${artifact.temp.output.ScheduleApp}/database">
       <fileset dir="${basedir}/database"/>
+    </copy>
+    <mkdir dir="${artifact.temp.output.ScheduleApp}/licenses"/>
+    <copy todir="${artifact.temp.output.ScheduleApp}/licenses">
+      <fileset dir="${basedir}/licenses"/>
     </copy>
     <fx:fileset id="all_but_ScheduleApp" dir="${artifact.temp.output.ScheduleApp}" includes="**/*.jar">
       <exclude name="ScheduleApp.jar"/>

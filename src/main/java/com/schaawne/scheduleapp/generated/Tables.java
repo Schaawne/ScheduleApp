@@ -4,6 +4,7 @@
 package com.schaawne.scheduleapp.generated;
 
 
+import com.schaawne.scheduleapp.generated.tables.Schedule;
 import com.schaawne.scheduleapp.generated.tables.Students;
 
 import javax.annotation.Generated;
@@ -26,4 +27,9 @@ public class Tables {
      * The table <code>PUBLIC.STUDENTS</code>.
      */
     public static final Students STUDENTS = com.schaawne.scheduleapp.generated.tables.Students.STUDENTS;
+
+    /**
+     * The table <code>PUBLIC.SCHEDULE</code>.
+     */
+    public static final Schedule SCHEDULE = com.schaawne.scheduleapp.generated.tables.Schedule.SCHEDULE;
 }

@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane prefWidth="240.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.schaawne.scheduleapp.AboutWindowController">
    <top>
       <Label text="Schaawne's Schedule App" BorderPane.alignment="CENTER">
@@ -15,7 +14,7 @@
       </Label>
    </top>
    <center>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="31.0" prefWidth="240.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="240.0" text="Included Libraries">
                <font>
@@ -28,6 +27,11 @@
                </font>
             </Label>
             <Label layoutX="14.0" layoutY="45.0" text="H2Database v1.4.191">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="66.0" text="ControlsFX v8.40.10">
                <font>
                   <Font size="14.0" />
                </font>
